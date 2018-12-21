@@ -1,0 +1,103 @@
+//Жуков Михаил Олегович, ЗИВТ-161
+
+
+import java.util.Scanner;
+
+class Loader {
+    public static void main(String[] arg) {
+
+        System.out.println ("Лаб. 1:\n" +
+                "Разработать консольное приложение: \n" +
+                "В русском тексте каждую букву заменить ее номером в алфавите.\n" +
+                "В одной строке печатать текст с двумя пробелами между буквами,\n" +
+                "в следующей строке внизу под каждой буквой печатать ее номер \n" +
+                "Ввод текста осуществить в консоли\n");
+
+        //Заводим переменную для выхода из программы
+        boolean ext = false;
+        Scanner scan = new Scanner(System.in);
+
+        /**
+         * Меню и выполнение задачи
+         */
+        while (!ext) {
+            //Вводим текст в консоль и осуществляем над ним обработку с выводом через 2 функции (метода)
+            System.out.println ("Введите текст:");
+            String text = scan.nextLine();
+            numLetters (twoSpace(text));
+
+            //цикл для меню
+            while (true) {
+
+                System.out.println ("Хотите продолжжить? Y or N");
+                char exit = scan.next().charAt(0);
+
+                if (exit == 'N' || exit == 'n') {
+                    System.out.println ("Пока!");
+                    ext = true;
+                    break;
+                }
+                else if (exit == 'Y' || exit == 'y'){
+                    scan.nextLine();
+                    break;
+                }
+                else {
+                    System.out.println("Введите Y - для повторения или N - для выхода");
+                    continue;
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Функция для вывода букв и растановки двух пробелов
+     */
+    public static char[] twoSpace(String text) {
+
+        //перевод текста в массив Char
+        char[] charText = text.toCharArray();
+        //Перебираем массив с выводом букв с двумя пробелами, фильтруем только пробелы в тексте
+        for (int i = 0; i < text.length(); i++){
+            if (charText [i] == ' ')
+                continue;
+            else
+                System.out.print(charText[i] + "  ");
+        }
+        System.out.print("\n");
+        return charText;
+    }
+
+    /**
+     * Функция для для нумерации букв
+     */
+    public static void numLetters (char[] text) {
+
+        //строка алфавита в нижнем регистре
+        String alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+
+        //цикл для перебора массива и сравнения с алфавитом, вывод номера буквы (+1 т.к. счет начинается с 0)
+        for (char a : text) {
+            if (a == ' ') {
+                System.out.print("");
+            }
+            else {
+                int i = alphabet.lastIndexOf(a);
+                i++;
+                //перевод в верхний регистр алфавита для определения буквы
+                if (i == 0){
+                    i = alphabet.toUpperCase().lastIndexOf(a);
+                    i++;
+                }
+                if ((i / 10) == 0)
+                    System.out.print(i + "  ");
+                else
+                    System.out.print(i + " ");
+            }
+        }
+        System.out.print("\n");
+    }
+}
+
+
+
